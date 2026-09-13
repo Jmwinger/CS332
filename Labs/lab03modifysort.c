@@ -28,7 +28,6 @@ int main() {
     printf("\nSorted Strings:\n");
     displayStrings(arr, N);
 
-    /* Free allocated memory */
     for (int i = 0; i < N; i++) {
         free(arr[i]);
     }
