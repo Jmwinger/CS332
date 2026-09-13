@@ -12,7 +12,6 @@ int main() {
     printf("Enter number of strings: ");
     scanf("%d", &N);
 
-    /* Allocate memory for array of string pointers */
     char **arr = (char **)malloc(N * sizeof(char *));
     if (arr == NULL) {
         printf("Memory allocation failed.\n");
@@ -38,7 +37,6 @@ int main() {
     return 0;
 }
 
-/* Read strings and allocate memory dynamically */
 void readStrings(char **arr, int size) {
     char temp[100];
 
@@ -57,14 +55,12 @@ void readStrings(char **arr, int size) {
     }
 }
 
-/* Display strings */
 void displayStrings(char **arr, int size) {
     for (int i = 0; i < size; i++) {
         printf("%s\n", arr[i]);
     }
 }
 
-/* Insertion Sort for strings */
 void sortStrings(char **arr, int size) {
     for (int i = 1; i < size; i++) {
         char *key = arr[i];
