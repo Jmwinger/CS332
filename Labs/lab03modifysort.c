@@ -73,3 +73,17 @@ void sortStrings(char **arr, int size) {
         arr[j + 1] = key;
     }
 }
+void displayStrings(char **arr, int size) {
+    printf("[");
+
+    for (int i = 0, i < size; i++){
+        printf("%s", arr[i]);
+
+        if (i < size - 1){
+            printf (", ");
+        }
+    }
+
+    printf ("]\n");
+}
+
