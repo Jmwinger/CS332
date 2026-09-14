@@ -13,6 +13,7 @@ int main() {
     scanf("%d", &N);
 
     char **arr = (char **)malloc(N * sizeof(char *));
+
     if (arr == NULL) {
         printf("Memory allocation failed.\n");
         return 1;
@@ -54,12 +55,6 @@ void readStrings(char **arr, int size) {
     }
 }
 
-void displayStrings(char **arr, int size) {
-    for (int i = 0; i < size; i++) {
-        printf("%s\n", arr[i]);
-    }
-}
-
 void sortStrings(char **arr, int size) {
     for (int i = 1; i < size; i++) {
         char *key = arr[i];
@@ -76,7 +71,7 @@ void sortStrings(char **arr, int size) {
 void displayStrings(char **arr, int size) {
     printf("[");
 
-    for (int i = 0, i < size; i++){
+    for (int i = 0; i < size; i++){
         printf("%s", arr[i]);
 
         if (i < size - 1){
