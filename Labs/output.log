@@ -1,0 +1,4 @@
+uname -a	Mon Oct 12 00:10:24 202	Mon Oct 12 00:10:24 202
+date	Mon Oct 12 00:10:24 202	Mon Oct 12 00:10:24 202
+ls -1	Mon Oct 12 00:10:24 202	Mon Oct 12 00:10:24 202
+./lab01prime 100	Mon Oct 12 00:10:31 202	Mon Oct 12 00:10:31 202

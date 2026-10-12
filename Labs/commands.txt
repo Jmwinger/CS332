@@ -1,0 +1,6 @@
+uname -a
+date
+ls -1
+./lab01prime 100
+./lab01prime 500
+./lab01prime 1000
