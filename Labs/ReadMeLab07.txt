@@ -3,7 +3,7 @@
 A simple C program that reads commands from an input
 file and creates child processes using fork(). It xecutes
 commands using execvp(), uses wait() to wait for the child 
-process to finish, and records execution times in a log file
+process to finish, and records execution times in a log file.
 
 ## Requirements
 
@@ -11,13 +11,14 @@ process to finish, and records execution times in a log file
 ## Compile
 
 ```bash
-gcc -Wall -o lab07 lab06.c
+gcc -Wall -o lab07 lab07.c
 ```
 
 ## Run
 
 ```bash
-.\lab07 commands.txt
+./lab07 commands.txt
+cat output.log
 ```
 
 ## Example
@@ -42,8 +43,7 @@ ls -1   Mon Oct 12 03:15:35 202 Mon Oct 12 03:15:35 202
 
 ## How It Works
 
-The program opens an input file specified on the command
-line and reads one command at a time using fgets().
+The program opens an input file and reads one command at a time using fgets().
 For each command, the parent process records the start 
 time and then creates a child process using fork().
 The child process executes the command using execvp() 
