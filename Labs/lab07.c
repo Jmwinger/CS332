@@ -1,18 +1,3 @@
-/*
- * lab07.c
- *
- * Reads commands from an input file.
- * Creates a child process using fork().
- * Executes commands using execvp().
- * Parent waits for child and logs execution times.
- *
- * Compile:
- * gcc -Wall -o lab07 lab07.c
- *
- * Run:
- * ./lab07 commands.txt
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -30,31 +15,27 @@ int main(int argc, char *argv[])
     FILE *logFile;
     char line[MAX_LINE];
 
-    if (argc != 2)
-    {
+    if (argc != 2){
         fprintf(stderr, "Usage: %s inputfile\n", argv[0]);
         return EXIT_FAILURE;
     }
 
     inputFile = fopen(argv[1], "r");
 
-    if (inputFile == NULL)
-    {
+    if (inputFile == NULL){
         perror("fopen input file");
         return EXIT_FAILURE;
     }
 
     logFile = fopen("output.log", "w");
 
-    if (logFile == NULL)
-    {
+    if (logFile == NULL){
         perror("fopen output.log");
         fclose(inputFile);
         return EXIT_FAILURE;
     }
 
-    while (fgets(line, sizeof(line), inputFile) != NULL)
-    {
+    while (fgets(line, sizeof(line), inputFile) != NULL){
         char originalLine[MAX_LINE];
 
         strcpy(originalLine, line);
@@ -70,8 +51,7 @@ int main(int argc, char *argv[])
 
         char *token = strtok(line, " ");
 
-        while (token != NULL && argCount < MAX_ARGS - 1)
-        {
+        while (token != NULL && argCount < MAX_ARGS - 1){
             args[argCount++] = token;
             token = strtok(NULL, " ");
         }
@@ -82,23 +62,20 @@ int main(int argc, char *argv[])
 
         pid_t pid = fork();
 
-        if (pid == 0)
-        {
+        if (pid == 0){
             execvp(args[0], args);
 
             perror("execvp");
             exit(EXIT_FAILURE);
         }
-        else if (pid > 0)
-        {
+        else if (pid > 0){
             int status;
 
             waitpid(pid, &status, 0);
 
             time_t endTime = time(NULL);
 
-            if (WIFEXITED(status))
-            {
+            if (WIFEXITED(status)){
                 char *startStr = ctime(&startTime);
                 char *endStr = ctime(&endTime);
 
@@ -114,8 +91,7 @@ int main(int argc, char *argv[])
                 fflush(logFile);
             }
         }
-        else
-        {
+        else{
             perror("fork");
         }
     }
