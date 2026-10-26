@@ -52,6 +52,6 @@ either SIGINT, SIGTSTP, or SIGQUIT, an action is performed. Either the default
 action, ignoring the signal, or catching and handling. When the user presses 
 Ctrl-C, the parent catches SIGINT and sends the signal to the child process 
 using kill(). When the user presses Ctrl-Z, the parent catches SIGTSTP to stop
-the child process. When the user presses Ctrl-/, the parent catches SIGQUIT, 
+the child process. When the user presses Ctrl-\, the parent catches SIGQUIT, 
 kills the child process if necessary, and exits the program. The parent 
 uses pause() to wait for signals and respond to them.
