@@ -1,10 +1,3 @@
-/*
- * Modified forkexecvp.c
- * Ctrl-C  -> sends SIGINT to child
- * Ctrl-Z  -> sends SIGTSTP to child
- * Ctrl-\  -> terminates parent
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -15,7 +8,7 @@
 pid_t child_pid = -1;
 
 void signal_handler(int signo){
-    switch(signo)    {
+    switch(signo){
         case SIGINT:
             printf("\nParent caught SIGINT\n");
             if (child_pid > 0)
@@ -42,7 +35,7 @@ void signal_handler(int signo){
 int main(int argc, char **argv){
     int status;
 
-    if (argc < 2)    {
+    if (argc < 2){
         printf("Usage: %s <command> [args]\n", argv[0]);
         exit(EXIT_FAILURE);
     }
@@ -53,26 +46,26 @@ int main(int argc, char **argv){
 
     child_pid = fork();
 
-    if (child_pid == 0)    {
+    if (child_pid == 0){
         execvp(argv[1], &argv[1]);
 
         perror("execvp");
         exit(EXIT_FAILURE);
     }
-    else if (child_pid > 0)    {
+    else if (child_pid > 0){
         printf("Parent PID = %ld\n", (long)getpid());
         printf("Child PID  = %ld\n", (long)child_pid);
         printf("Press Ctrl-C, Ctrl-Z, or Ctrl-\\\n");
 
-        while (1)        {
+        while (1){
             pause();
 
-            if (waitpid(child_pid, &status, WNOHANG) > 0)            {
-                if (WIFEXITED(status))                {
+            if (waitpid(child_pid, &status, WNOHANG) > 0){
+                if (WIFEXITED(status)){
                     printf("Child exited with status %d\n",
                            WEXITSTATUS(status));
                 }
-                else if (WIFSIGNALED(status))                {
+                else if (WIFSIGNALED(status)){
                     printf("Child terminated by signal %d\n",
                            WTERMSIG(status));
                 }
