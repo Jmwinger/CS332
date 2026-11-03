@@ -61,7 +61,7 @@ After execution,
 How It Works
 The program uses fork() to create a child process which prints the
 file name, size (in bytes), and count and print the number 
-of words in the file.The parent process waits for all child processes to complete
+of words in the file. The parent process waits for all child processes to complete
 using wait() before terminating. stat() is used to obtain information about each file,
 including its size in bytes. 
 
