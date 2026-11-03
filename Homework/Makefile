@@ -1,10 +1,10 @@
-# Makefile for HW02
+# Makefile for HW03
 
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -Wextra
 
-hw02: hw02.c
-	$(CC) $(CFLAGS) -o hw02 hw02.c
+hw03: hw03.c
+	$(CC) $(CFLAGS) hw03.c -o hw03
 
 clean:
-	rm -f hw02
+	rm -f hw03
