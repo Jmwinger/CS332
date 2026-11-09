@@ -14,17 +14,13 @@ int main(void) {
         if (fgets(command, sizeof(command), stdin) == NULL) {
             break;
         }
-
-        /* Remove newline character */
         command[strcspn(command, "\n")] = '\0';
 
-        /* Check for quit command */
         if (strcmp(command, "quit") == 0) {
-            printf("Exiting program...bye!\n");
+            printf("Exiting program...\n");
             break;
         }
 
-        /* Skip empty commands */
         if (strlen(command) == 0) {
             continue;
         }
