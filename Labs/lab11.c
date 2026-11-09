@@ -1,14 +1,3 @@
-/*
- * lab11.c
- *
- * Prompts the user for UNIX commands, executes them using
- * popen(), displays the output, and repeats until "quit"
- * is entered.
- *
- * Compile: gcc -Wall -Wextra lab11.c -o lab11
- * Run: ./lab11
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
