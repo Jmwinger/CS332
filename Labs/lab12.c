@@ -1,0 +1,85 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+typedef struct {
+    double *a;
+    double *sum;
+    int N;
+    int size;
+    long tid;
+} ThreadData;
+
+void *compute(void *arg) {
+    ThreadData *data = (ThreadData *)arg;
+
+    int myN = data->N / data->size;
+    int myStart = data->tid * myN;
+    int myEnd = myStart + myN;
+
+    if (data->tid == data->size - 1)
+        myEnd = data->N;
+
+    double mysum = 0.0;
+
+    for (int i = myStart; i < myEnd; i++) {
+        mysum += data->a[i];
+    }
+
+    pthread_mutex_lock(&mutex);
+    *(data->sum) += mysum;
+    pthread_mutex_unlock(&mutex);
+
+    return NULL;
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        printf("Usage: %s <# elements> <# threads>\n", argv[0]);
+        return 1;
+    }
+
+    int N = atoi(argv[1]);
+    int size = atoi(argv[2]);
+
+    double sum = 0.0;
+
+    double *a = malloc(sizeof(double) * N);
+    pthread_t *threads = malloc(sizeof(pthread_t) * size);
+    ThreadData *data = malloc(sizeof(ThreadData) * size);
+
+    if (a == NULL || threads == NULL || data == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    for (int i = 0; i < N; i++) {
+        a[i] = (double)(i + 1);
+    }
+
+    for (long i = 0; i < size; i++) {
+        data[i].a = a;
+        data[i].sum = &sum;
+        data[i].N = N;
+        data[i].size = size;
+        data[i].tid = i;
+
+        pthread_create(&threads[i], NULL, compute, &data[i]);
+    }
+
+    for (int i = 0; i < size; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    printf("The total is %g, it should be equal to %g\n",
+           sum, ((double)N * (N + 1)) / 2);
+
+    free(a);
+    free(threads);
+    free(data);
+
+    return 0;
+}
